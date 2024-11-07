@@ -168,12 +168,14 @@ public class Backpack extends BaseUi {
             if (Clicked != gp.getMouseClick()) {
                 Clicked = gp.getMouseClick();
                 if (Detect) {
+                    gp.Sounds.playSound("ClickUi1");
                     int index = (ObjSelectTile.Row * 5) + ObjSelectTile.Col;
                     if (index < Items.length) {
                         ItemFocus = Items[index];
                         System.out.println("Change Focus : "+index);
                     }
                 } else if (Detect2) {
+                    gp.Sounds.playSound("ClickUi2");
                     ItemSelect = ItemFocus;
                 }
             }

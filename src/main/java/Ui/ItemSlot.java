@@ -60,12 +60,14 @@ public class ItemSlot extends BaseUi {
                 } else if (UiManage.MyBackpack.ItemSelect.Type == "Seed") {
                     int tileSeed = gp.Maps.MapLoaded[Row][Col][7];
                     if (tileNum != 1010 || tileSeed != -2) return;
+                    if (UiManage.MyBackpack.ItemSelect.Amount > 0) return;
                     
                     UiManage.MyBackpack.ItemSelect.Amount--;
                     
                     gp.Maps.MapLoaded[Row][Col][9] = UiManage.MyBackpack.ItemSelect.State[0][0];
                     gp.Maps.MapLoaded[Row-1][Col][8] = UiManage.MyBackpack.ItemSelect.State[0][0];
                     gp.Maps.MapLoaded[Row][Col][7] = UiManage.MyBackpack.ItemSelect.State[0][1];
+                    gp.Maps.MapLoaded[Row][Col][7] = ;
                 } else if (UiManage.MyBackpack.ItemSelect.Name == "Shovel") {
                     int cropId = gp.Maps.MapLoaded[Row][Col][7];
                     if (cropId == -2) return;

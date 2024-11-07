@@ -22,6 +22,7 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 import utils.FileReader;
 import utils.MapManager;
+import utils.SoundManager;
 
 public class GamePanel extends JPanel implements Runnable{
     // Screen Setting
@@ -42,10 +43,11 @@ public class GamePanel extends JPanel implements Runnable{
     public UiManager UiManage = new UiManager(this, keyH);
     public Player player = new Player(this, keyH);
     public MapManager Maps = new MapManager(this, 0);
+    public SoundManager Sounds = new SoundManager();
     
     private int mouseX = -1;
     private int mouseY = -1;
-    private int mouseClick = 0;
+    private int mouseClick = 1;
     
     public GamePanel() {
         this.setPreferredSize(new Dimension(screenWidth, screenHeight));
