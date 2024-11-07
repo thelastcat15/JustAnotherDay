@@ -1,4 +1,4 @@
-package utils;
+package Maps;
 
 import java.awt.Graphics2D;
 import java.awt.Rectangle;
@@ -13,14 +13,17 @@ import Ui.UiManager;
 public class MapManager {
     GamePanel gp;
     
-    public int[][][] MapLoaded;
-    public Rectangle[][] TilesAround = {{null, null, null},{null, null, null},{null, null, null}};
-    TileManager MapAsset;
-    
+    int Row = 100;
+    int Col = 100;
     int Layers = 0;
     int[] MapSize = {100, 100};
     int[] TileSize = {20, 20, 0, 0, 0, 0};
     int[] Dirts = {460, 468, 469, 532, 533};
+    
+    public int[][][] MapLoaded;
+    public MapModify MapModifyLoaded;
+    public Rectangle[][] TilesAround = {{null, null, null},{null, null, null},{null, null, null}};
+    TileManager MapAsset;
     
     String AssetPath = "/tiles/town.png";
     String[] Maps = {
@@ -33,16 +36,16 @@ public class MapManager {
         this.gp = gp;
         LoadResource();
         ChangeMap(MapNum);
-        
     }
     
     public void ChangeMap(int MapNum) {
         try {
             File[] FolderMap = new File("src/main/resources/maps/" + Maps[MapNum]).listFiles();
-            Layers = FolderMap.length+4;
-            int Row = 100;
-            int Col = 100;
+            Layers = FolderMap.length;
+            
             MapLoaded = new int[Row][Col][Layers];
+            MapModifyLoaded = new MapModify(Row, Col);
+            
             int layer = 0;
             for (File file : FolderMap) {
                 System.out.println(file.getName());
@@ -61,13 +64,6 @@ public class MapManager {
                 }
                 br.close();
                 layer++;
-            }
-            for (int row=0; row<Row; row++) {
-                for (int col=0; col<Col; col++) {
-                    for (int i=0; i<4; i++) {
-                        MapLoaded[row][col][layer+i] = -2;
-                    }
-                }
             }
         } catch (Exception e) {
             e.printStackTrace();
@@ -113,7 +109,7 @@ public class MapManager {
                 
                 for (int layer = 1; layer < Layers; layer++) {
                     int tileNum = MapLoaded[row][col][layer];
-                    if (tileNum == -1 || tileNum == -2) continue;
+                    if (tileNum == -1) continue;
 
                     g2.drawImage(
                         MapAsset.GetTile(0, tileNum),
@@ -122,6 +118,17 @@ public class MapManager {
                         gp.tileSize,
                         gp.tileSize,
                         null
+                    );
+                }
+                
+                Tile FocusTile = MapModifyLoaded.Tiles[row][col];
+                if (FocusTile != null) {
+                    FocusTile.draw(
+                        g2,
+                        TileWorldX,
+                        TileWorldY,
+                        MapAsset,
+                        gp.tileSize
                     );
                 }
                 

@@ -1,7 +1,3 @@
-/*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
- */
 package Ui;
 
 import java.awt.Color;
@@ -10,15 +6,17 @@ import java.awt.Graphics2D;
 import java.awt.event.KeyEvent;
 import java.awt.image.BufferedImage;
 import main.KeyHandler;
-import utils.TileManager;
+import Maps.TileManager;
 
 class Item {
+    int itemId;
     String Name;
     int Amount = 0;
     BufferedImage Image;
     String Type = "Item";
-    int State[][];
-    Item(BufferedImage Image, String Name, int Amount) {
+    public int State[][];
+    Item(int itemId, BufferedImage Image, String Name, int Amount) {
+        this.itemId = itemId;
         this.Image = Image;
         this.Name = Name;
         this.Amount = Amount;
@@ -26,23 +24,23 @@ class Item {
 }
 
 class Seed extends Item {
-    public Seed(BufferedImage Image, String Name, int Amount, int State[][]) {
-        super(Image, Name, Amount);
+    public Seed(int itemId, BufferedImage Image, String Name, int Amount, int State[][]) {
+        super(itemId, Image, Name, Amount);
         this.State = State;
         this.Type = "Seed";
     }
 }
 
 class Crop extends Item {
-    public Crop(BufferedImage Image, String Name, int Amount) {
-        super(Image, Name, Amount);
+    public Crop(int itemId, BufferedImage Image, String Name, int Amount) {
+        super(itemId, Image, Name, Amount);
         this.Type = "Crop";
     }
 }
 
 class Tool extends Item {
-    public Tool(BufferedImage Image, String Name, int Amount) {
-        super(Image, Name, Amount);
+    public Tool(int itemId, BufferedImage Image, String Name, int Amount) {
+        super(itemId, Image, Name, Amount);
         this.Type = "Tool";
     }
 }
@@ -62,19 +60,19 @@ public class Backpack extends BaseUi {
     SelectTile ObjSelectTile;
     
     public Item Items[] = {
-        new Crop(CropsAsset.GetTile(0, 1), "Carrot", 10),
-        new Crop(CropsAsset.GetTile(0, 3), "Pumpkin", 10),
-        new Crop(CropsAsset.GetTile(0, 5), "Radish", 10),
-        new Crop(CropsAsset.GetTile(0, 7), "Potato", 10),
-        new Crop(CropsAsset.GetTile(0, 8), "Cabbage", 10),
-        new Seed(CropsAsset.GetTile(1, 1), "Carrot Seed", 10, new int[][]{{-2, 819}, {-2, 883}, {947, 1011}, {1075, 1139}}),
-        new Seed(CropsAsset.GetTile(1, 3), "Pumpkin Seed", 10, new int[][]{{-2, 821}, {-2, 885}, {949, 1013}, {1077, 1141}}),
-        new Seed(CropsAsset.GetTile(1, 5), "Radish Seed", 10, new int[][]{{-2, 823}, {-2, 887}, {951, 1015}, {1079, 1143}}),
-        new Seed(CropsAsset.GetTile(1, 7), "Potato Seed", 10, new int[][]{{-2, 825}, {-2, 889}, {953, 1017}, {1081, 1145}}),
-        new Seed(CropsAsset.GetTile(1, 8), "Cabbage Seed", 10, new int[][]{{-2, 826}, {-2, 890}, {954, 1016}, {1082, 1146}}),
-        new Tool(ToolsAsset.GetTile(0, 5), "Watering Pot", 1),
-        new Tool(ToolsAsset.GetTile(4, 5), "Shovel", 1),
-        new Tool(ToolsAsset.GetTile(1, 5), "Hoe", 1),
+        new Crop(0, CropsAsset.GetTile(0, 1), "Carrot", 10),
+        new Crop(1, CropsAsset.GetTile(0, 3), "Pumpkin", 10),
+        new Crop(2, CropsAsset.GetTile(0, 5), "Radish", 10),
+        new Crop(3, CropsAsset.GetTile(0, 7), "Potato", 10),
+        new Crop(4, CropsAsset.GetTile(0, 8), "Cabbage", 10),
+        new Seed(5, CropsAsset.GetTile(1, 1), "Carrot Seed", 10, new int[][]{{-2, 819}, {-2, 883}, {947, 1011}, {1075, 1139}}),
+        new Seed(6, CropsAsset.GetTile(1, 3), "Pumpkin Seed", 10, new int[][]{{-2, 821}, {-2, 885}, {949, 1013}, {1077, 1141}}),
+        new Seed(7, CropsAsset.GetTile(1, 5), "Radish Seed", 10, new int[][]{{-2, 823}, {-2, 887}, {951, 1015}, {1079, 1143}}),
+        new Seed(8, CropsAsset.GetTile(1, 7), "Potato Seed", 10, new int[][]{{-2, 825}, {-2, 889}, {953, 1017}, {1081, 1145}}),
+        new Seed(9, CropsAsset.GetTile(1, 8), "Cabbage Seed", 10, new int[][]{{-2, 826}, {-2, 890}, {954, 1018}, {1082, 1146}}),
+        new Tool(10, ToolsAsset.GetTile(0, 5), "Watering Pot", 1),
+        new Tool(11, ToolsAsset.GetTile(4, 5), "Shovel", 1),
+        new Tool(12, ToolsAsset.GetTile(1, 5), "Hoe", 1),
     };
     Item ItemFocus = Items[0];
     public Item ItemSelect = ItemFocus;

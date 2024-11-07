@@ -1,4 +1,4 @@
-package utils;
+package Maps;
 
 import java.awt.Graphics2D;
 import java.awt.geom.AffineTransform;
@@ -8,6 +8,7 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.util.Arrays;
 import javax.imageio.ImageIO;
+import utils.FileReader;
 
 
 public class TileManager {

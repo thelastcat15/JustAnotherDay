@@ -18,7 +18,7 @@ public class Main {
         JFrame window = new JFrame();
         window.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         window.setResizable(false);
-        window.setTitle("Just Another Day v0.1");
+        window.setTitle("Just Another Day v1.0");
         window.setIconImage(Toolkit.getDefaultToolkit().getImage(Main.class.getResource("/Ui/JAD_bg.png")));
         
         GamePanel gamePanel = new GamePanel();

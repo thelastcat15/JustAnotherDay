@@ -2,7 +2,7 @@ package entity;
 
 import java.awt.image.BufferedImage;
 
-import utils.TileManager;
+import Maps.TileManager;
 
 public class AnimationManager {
     // Variable

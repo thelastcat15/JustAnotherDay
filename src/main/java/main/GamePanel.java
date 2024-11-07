@@ -21,7 +21,7 @@ import java.io.InputStream;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import utils.FileReader;
-import utils.MapManager;
+import Maps.MapManager;
 import utils.SoundManager;
 
 public class GamePanel extends JPanel implements Runnable{

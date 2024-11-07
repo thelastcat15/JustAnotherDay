@@ -34,6 +34,7 @@ public class Player extends Entity{
     // Property
     int CharacterAction = IDLE;
     int CharacterDirection = 0;
+    boolean DisableMovement = false;
     double diagSpeed;
     
     int States[][][] = {
@@ -86,81 +87,83 @@ public class Player extends Entity{
 //            worldX += diagSpeed;
 //            CharacterAction = RUNNING;
 //            CharacterDirection = 1;
-        if (keyH.upPressed) {
-            boolean CanCollide = true;
-            Rectangle HRP = new Rectangle(centerX-21, centerY+6-speed, 41, 20);
-            for (int i=0; i<3; i++) {
-                if (gp.Maps.TilesAround[0][i] != null) {
-                    if (HRP.intersects(gp.Maps.TilesAround[0][i])) {
-                        CanCollide = false;
-                        break;
+        if (!DisableMovement) {
+            if (keyH.upPressed) {
+                boolean CanCollide = true;
+                Rectangle HRP = new Rectangle(centerX-21, centerY+6-speed, 41, 20);
+                for (int i=0; i<3; i++) {
+                    if (gp.Maps.TilesAround[0][i] != null) {
+                        if (HRP.intersects(gp.Maps.TilesAround[0][i])) {
+                            CanCollide = false;
+                            break;
+                        }
                     }
                 }
+                if (CanCollide) {
+                    worldY -= speed;
+                    CharacterAction = RUNNING;
+                }
+    //        } else if (keyH.downPressed && keyH.leftPressed) {
+    //            worldY += diagSpeed;
+    //            worldX -= diagSpeed;
+    //            CharacterAction = RUNNING;
+    //            CharacterDirection = 0;
+    //        } else if (keyH.downPressed && keyH.rightPressed) {
+    //            worldY += diagSpeed;
+    //            worldX += diagSpeed;
+    //            CharacterAction = RUNNING;
+    //            CharacterDirection = 1;
             }
-            if (CanCollide) {
-                worldY -= speed;
-                CharacterAction = RUNNING;
-            }
-//        } else if (keyH.downPressed && keyH.leftPressed) {
-//            worldY += diagSpeed;
-//            worldX -= diagSpeed;
-//            CharacterAction = RUNNING;
-//            CharacterDirection = 0;
-//        } else if (keyH.downPressed && keyH.rightPressed) {
-//            worldY += diagSpeed;
-//            worldX += diagSpeed;
-//            CharacterAction = RUNNING;
-//            CharacterDirection = 1;
-        }
-        if (keyH.downPressed) {
-            boolean CanCollide = true;
-            Rectangle HRP = new Rectangle(centerX-21, centerY+6+speed, 41, 20);
-            for (int i=0; i<3; i++) {
-                if (gp.Maps.TilesAround[2][i] != null) {
-                    if (HRP.intersects(gp.Maps.TilesAround[2][i])) {
-                        CanCollide = false;
-                        break;
+            if (keyH.downPressed) {
+                boolean CanCollide = true;
+                Rectangle HRP = new Rectangle(centerX-21, centerY+6+speed, 41, 20);
+                for (int i=0; i<3; i++) {
+                    if (gp.Maps.TilesAround[2][i] != null) {
+                        if (HRP.intersects(gp.Maps.TilesAround[2][i])) {
+                            CanCollide = false;
+                            break;
+                        }
                     }
                 }
-            }
-            if (CanCollide) {
-                worldY += speed;
-                CharacterAction = RUNNING;
-            }
-        }
-        if (keyH.leftPressed) {
-            boolean CanCollide = true;
-            Rectangle HRP = new Rectangle(centerX-21-speed, centerY+6, 41, 20);
-            for (int i=0; i<3; i++) {
-                if (gp.Maps.TilesAround[i][0] != null) {
-                    if (HRP.intersects(gp.Maps.TilesAround[i][0])) {
-                        CanCollide = false;
-                        break;
-                    }
+                if (CanCollide) {
+                    worldY += speed;
+                    CharacterAction = RUNNING;
                 }
             }
-            if (CanCollide) {
-                worldX -= speed;
-                CharacterAction = RUNNING;
-                CharacterDirection = 0;
-            }
-        }
-        if (keyH.rightPressed) {
-            boolean CanCollide = true;
-            Rectangle HRP = new Rectangle(centerX-21+speed, centerY+6, 41, 20);
-            
-            for (int i=0; i<3; i++) {
-                if (gp.Maps.TilesAround[i][2] != null) {
-                    if (HRP.intersects(gp.Maps.TilesAround[i][2])) {
-                        CanCollide = false;
-                        break;
+            if (keyH.leftPressed) {
+                boolean CanCollide = true;
+                Rectangle HRP = new Rectangle(centerX-21-speed, centerY+6, 41, 20);
+                for (int i=0; i<3; i++) {
+                    if (gp.Maps.TilesAround[i][0] != null) {
+                        if (HRP.intersects(gp.Maps.TilesAround[i][0])) {
+                            CanCollide = false;
+                            break;
+                        }
                     }
                 }
+                if (CanCollide) {
+                    worldX -= speed;
+                    CharacterAction = RUNNING;
+                    CharacterDirection = 0;
+                }
             }
-            if (CanCollide) {
-                worldX += speed;
-                CharacterAction = RUNNING;
-                CharacterDirection = 1;
+            if (keyH.rightPressed) {
+                boolean CanCollide = true;
+                Rectangle HRP = new Rectangle(centerX-21+speed, centerY+6, 41, 20);
+
+                for (int i=0; i<3; i++) {
+                    if (gp.Maps.TilesAround[i][2] != null) {
+                        if (HRP.intersects(gp.Maps.TilesAround[i][2])) {
+                            CanCollide = false;
+                            break;
+                        }
+                    }
+                }
+                if (CanCollide) {
+                    worldX += speed;
+                    CharacterAction = RUNNING;
+                    CharacterDirection = 1;
+                }
             }
         }
         myAnimation.updateAnimationTick(CharacterAction);
@@ -179,33 +182,7 @@ public class Player extends Entity{
                     int Old_Speed = this.speed;
                     this.speed = 0;
                     
-                    for (int row = 0; row < 100; row++) {
-                        for (int col = 0; col < 100; col++) {
-                            if (gp.Maps.MapLoaded[row][col][7] != -2) {
-                                boolean Found = false;
-                                for (int[][] Seed : States) {
-                                    int AmountSeed = Seed.length-1;
-                                    for (int i=0; i<AmountSeed; i++) {
-                                        System.out.println(Seed[i][0] + " " + Seed[i][1]);
-                                        if (gp.Maps.MapLoaded[row][col][7] == Seed[i][1]) {
-                                            if (i == AmountSeed-1) {
-                                                System.out.println("Change Plot");
-                                                gp.Maps.MapLoaded[row][col][6] = 1138;
-                                            }
-                                            System.out.println("State : "+i+1);
-                                            gp.Maps.MapLoaded[row-1][col][8] = Seed[i+1][0];
-                                            gp.Maps.MapLoaded[row][col][7] = Seed[i+1][1];
-                                            Found = true;
-                                            break;
-                                        }
-                                    }
-                                    if (Found) {
-                                        break;
-                                    }
-                                }
-                            }
-                        }   
-                    }
+                    gp.Maps.MapModifyLoaded.updateState();
                     
                     this.Day++;
                     this.speed = Old_Speed;
