@@ -8,20 +8,6 @@ import java.awt.image.BufferedImage;
 import main.KeyHandler;
 import Maps.TileManager;
 
-class Item {
-    int itemId;
-    String Name;
-    int Amount = 0;
-    BufferedImage Image;
-    String Type = "Item";
-    public int State[][];
-    Item(int itemId, BufferedImage Image, String Name, int Amount) {
-        this.itemId = itemId;
-        this.Image = Image;
-        this.Name = Name;
-        this.Amount = Amount;
-    }
-}
 
 class Seed extends Item {
     public Seed(int itemId, BufferedImage Image, String Name, int Amount, int State[][]) {
@@ -117,6 +103,10 @@ public class Backpack extends BaseUi {
         
     }
     
+    public Item getItem(int index) {
+        return Items[index];
+    }
+    
     public void update() {
         Open = (keyH.getToggleState(KeyEvent.VK_B));
         
@@ -162,7 +152,6 @@ public class Backpack extends BaseUi {
                     Detect2 = true;
                 }
             }
-
             if (Clicked != gp.getMouseClick()) {
                 Clicked = gp.getMouseClick();
                 if (Detect) {
@@ -177,6 +166,8 @@ public class Backpack extends BaseUi {
                     ItemSelect = ItemFocus;
                 }
             }
+        } else {
+            Clicked = gp.getMouseClick();
         }
     }
     

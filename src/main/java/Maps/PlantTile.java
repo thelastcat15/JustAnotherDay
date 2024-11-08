@@ -42,7 +42,7 @@ public class PlantTile extends Tile {
     
     public void update() {
         int diffState = (States.length-1) - State;
-        System.out.println(diffState + " " + State);
+//        System.out.println(diffState + " " + State);
         if (Water && diffState > 0) {
             if (diffState == 1) {
                 DirtId = 1138;

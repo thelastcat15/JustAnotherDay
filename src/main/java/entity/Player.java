@@ -21,6 +21,7 @@ public class Player extends Entity{
     KeyHandler keyH;
     boolean ToggleE = false;
     public int Day = 1;
+    
     public int worldX = 2092;
     public int worldY = 2315;
     public Rectangle HRP;
@@ -32,28 +33,12 @@ public class Player extends Entity{
     AnimationManager myAnimation = new AnimationManager(pathFile, column, size);
     
     // Property
+    private int money = 100;
     int CharacterAction = IDLE;
     int CharacterDirection = 0;
-    boolean DisableMovement = false;
+    public boolean DisableMovement = false;
     double diagSpeed;
     
-    int States[][][] = {
-        {
-            {-2, 819}, {-2, 883}, {947, 1011}, {1075, 1139}
-        },
-        {
-            {-2, 821}, {-2, 885}, {949, 1013}, {1077, 1141}
-        },
-        {
-            {-2, 823}, {-2, 887}, {951, 1015}, {1079, 1143}
-        },
-        {
-            {-2, 825}, {-2, 889}, {953, 1017}, {1081, 1145}
-        },
-        {
-            {-2, 826}, {-2, 890}, {954, 1016}, {1082, 1146}
-        }
-    };
     
     public Player(GamePanel gp, KeyHandler keyH) {
         this.gp = gp;
@@ -73,6 +58,13 @@ public class Player extends Entity{
         this.worldY = y;
         this.speed = speed;
         this.diagSpeed = Math.sqrt(((speed*speed)/2));
+    }
+    
+    public int getMoney() {
+        return money;
+    }
+    public void setMoney(int money) {
+        this.money = money;
     }
     
     public void update() {
@@ -176,16 +168,11 @@ public class Player extends Entity{
         
         if (ToggleE != keyH.getToggleState(KeyEvent.VK_E)) {
             ToggleE = keyH.getToggleState(KeyEvent.VK_E);
-            if (2064 <= this.worldX && this.worldX <= 2116) {
-                if (2315 <= this.worldY && this.worldY <= 2355) {
-                    System.out.println("New Day : "+this.Day);
-                    int Old_Speed = this.speed;
-                    this.speed = 0;
-                    
-                    gp.Maps.MapModifyLoaded.updateState();
-                    
-                    this.Day++;
-                    this.speed = Old_Speed;
+            if (!gp.UiManage.transition.WIP) {
+                if (2064 <= this.worldX && this.worldX <= 2116) {
+                    if (2315 <= this.worldY && this.worldY <= 2355) {
+                        gp.UiManage.transition.trigger();
+                    }
                 }
             }
         }

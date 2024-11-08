@@ -46,6 +46,7 @@ public class ItemSlot extends BaseUi {
                     if (UiManage.MyBackpack.ItemSelect.Amount <= 0) {
                         return;
                     }
+                    
                     UiManage.MyBackpack.ItemSelect.Amount--;
                     tile.Plant(UiManage.MyBackpack.ItemSelect.itemId, UiManage.MyBackpack.ItemSelect.State);
                 } else if (UiManage.MyBackpack.ItemSelect.Name == "Shovel") {

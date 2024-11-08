@@ -10,7 +10,9 @@ public class UiManager {
     public SelectTile UiTileSelect;
     public Backpack MyBackpack;
     public ItemSlot MyItemSlot;
-    public DateGame DateGameUi;
+    public StatUi DateGameUi;
+    public Dialog DialogUi;
+    public Transition transition;
     
     
     public UiManager(GamePanel gp, KeyHandler keyH) {
@@ -19,12 +21,15 @@ public class UiManager {
         this.UiTileSelect = new SelectTile(this);
         this.MyBackpack = new Backpack(this);
         this.MyItemSlot = new ItemSlot(this);
-        this.DateGameUi = new DateGame(this);
+        this.DateGameUi = new StatUi(this);
+        this.DialogUi = new Dialog(this);
+        this.transition = new Transition(this);
     }
     
     public void update() {
         this.MyBackpack.update();
         this.MyItemSlot.update();
+        this.DialogUi.update();
     }
     
     public void draw(Graphics2D g2) {
@@ -32,5 +37,7 @@ public class UiManager {
         this.MyBackpack.draw(g2);
         this.MyItemSlot.draw(g2);
         this.DateGameUi.draw(g2);
+        this.DialogUi.draw(g2);
+        this.transition.draw(g2);
     }
 }

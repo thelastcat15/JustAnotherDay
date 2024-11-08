@@ -23,6 +23,10 @@ public class PixelFrame {
         constructor(color, x, y, width, height, scale);
     }
     
+    public void Resize(int x, int y, int width, int height) {
+        constructor(color, x, y, width, height, scale);
+    }
+    
     public void constructor(int color, int x, int y, int width, int height, int scale) {
         this.x = x;
         this.y = y;

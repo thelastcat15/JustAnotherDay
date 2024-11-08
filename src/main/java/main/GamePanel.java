@@ -22,6 +22,7 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 import utils.FileReader;
 import Maps.MapManager;
+import entity.Npc;
 import utils.SoundManager;
 
 public class GamePanel extends JPanel implements Runnable{
@@ -42,6 +43,7 @@ public class GamePanel extends JPanel implements Runnable{
     Thread gameThread, updateThread;
     public UiManager UiManage = new UiManager(this, keyH);
     public Player player = new Player(this, keyH);
+    public Npc npc = new Npc(this, keyH);
     public MapManager Maps = new MapManager(this, 0);
     public SoundManager Sounds = new SoundManager();
     
@@ -135,6 +137,7 @@ public class GamePanel extends JPanel implements Runnable{
     
     public void update() {
         player.update();
+        npc.update();
         UiManage.update();
     }
     
@@ -145,6 +148,7 @@ public class GamePanel extends JPanel implements Runnable{
         
         if (GameState == 1) {
             Maps.draw(g2);
+            npc.draw(g2);
             player.draw(g2);
             UiManage.draw(g2);
         } else {
